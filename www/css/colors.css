@@ -1,0 +1,18 @@
+.actionsheet .action-sheet-group:first-child{
+  background: #ccccc !important;
+  border-radius: 2px;
+}
+.actionsheet .action-sheet-group:last-child{
+  background: #4672b8 !important;
+  color: white !important;
+}
+.actionsheet .action-sheet-cancel button{
+  background: #4672b8 !important;
+  color: white !important;
+}
+
+.actionsheet .button{
+  color: #4672b8 !important;
+  font-family: 'gotham-book';
+  font-size: 130%;
+}

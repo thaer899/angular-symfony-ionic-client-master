@@ -1,0 +1,45 @@
+
+<ion-view view-title={{page.category.title}}>
+ 
+   <ion-content>
+   <div class="card" style="backgroung-image=url('upload/image/user.png')">
+     <ion-list class="list-borderless">
+        <ion-item class="item-icon-right">
+          <h2 class="font-130">{{page.title}}</h2>
+          <p class="color-gray">{{page.category.description}}</p>
+          <i class="icon ion-android-more-vertical color-red bold" ng-click="showActionSheet()"></i>
+        </ion-item>
+      </ion-list>
+             <div class="profile-container">
+          <img ng-click="openModal()" ng-src="../../angular-symfony-master/web/upload/category/{{page.category.image}}" class="profile-image" width="100">
+         <a href="#/edit_page" > <img
+            ng-src="image/edit.png"
+            class="profile-edit"
+            width="50"></a>
+        </div>
+
+      <div class="padding animated bounceInUp">
+          <span>{{page.description}}
+        <hr>
+  <div ng-repeat="menu in page.menus">
+        <button ng-click="getArticlesByMenuId(menu.id)" class="button margin-top-5 button-outline button-small button-assertive">{{menu.title}}</button>
+        </div>
+
+        
+      </div>
+      <div id="modal" class=""></div>
+
+</div>
+  </ion-content>
+  
+</ion-view>
+<script id="my-modal.html" type="text/ng-template">
+            <ion-modal-view>
+                <ion-header-bar>
+                    <h1 class="title">My Modal Title</h1>
+                </ion-header-bar>
+                <ion-content class="padding">
+                    My Modal Contents
+                </ion-content>
+            </ion-modal-view>
+        </script>

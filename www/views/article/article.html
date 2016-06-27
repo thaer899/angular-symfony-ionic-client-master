@@ -1,0 +1,16 @@
+<ion-view view-title="{{article.menu.title}}">
+  <ion-content>
+      <p ng-if="!articles.length">No Articles</p>
+    <div class="list card" ng-repeat="article in articles track by $index">
+      <div class="item">
+        <h2>{{article.title}}</h2>
+        <i>{{article.date | date:'short'}}</i>
+        <p>{{article.description}}</p>
+      </div>
+      <div class="item item-image">
+        <img ng-src="../../angular-symfony-master/web/upload/article/{{article.file}}" />
+      </div>
+    </div>
+    <ion-infinite-scroll on-infinite="getArticles()" ng-if="total > page" immediate-check="false"></ion-infinite-scroll>
+  </ion-content>
+</ion-view>
