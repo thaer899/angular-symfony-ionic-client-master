@@ -1,0 +1,26 @@
+<ion-view view-title="{{article.menu.title}}">
+  <ion-content>
+      <div class="list card" ng-if="equals({}, article)">
+      <div class="item">
+        <h2>Loading ...</h2>
+      </div>
+      <div class="item item-image">
+        <img ng-src="image/wait.jpg" />
+      </div>
+    </div>
+    <div class="list card">
+      <div class="item">
+        <h2>{{article.title}}</h2>
+        <a><i>{{article.date | date:'short'}}</i></a>
+                <h6>{{article.url}}</h6>
+                <hr/>
+                <h3><a href="#" ng-repeat="tag in article.tags"><span class="badge">{{tag.tag}}</span><br/></a></h3>
+
+        <p markdown="{{article.description}}">{{article.description}}</p>
+      </div>
+      <div class="item item-image">
+        <img ng-src="../../angular-symfony-master/web/upload/article/{{article.file}}" />
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

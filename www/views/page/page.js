@@ -1,14 +1,15 @@
 angular.module('App')
-.controller('PageController', function ($scope, $http,$ionicLoading,$ionicActionSheet,$ionicModal, $location) {
+.controller('PageController', function ($scope,PageService, $http,$ionicLoading,$ionicActionSheet,$ionicModal, $location) {
 
   $scope.id = 1;
   $scope.showActionSheet = showActionSheet;
-    
+  $scope.PageService = PageService;  
+
   $scope.getPage = function () {
        $ionicLoading.show();
     $http.get('http://127.0.0.1/angular-symfony-master/web/app_dev.php/pages/show/' + $scope.id).success(function (response) {
       $scope.page = angular.fromJson(response);
-        $scope.PageService = $scope.page.menu;
+        $scope.menu = PageService.menu;
       $ionicLoading.hide();
     }).error(function (err) {
       console.log(err);
@@ -20,6 +21,7 @@ angular.module('App')
    
    $scope.getArticlesByMenuId = function ($id) {
         $scope.id= $id;
+        $scope.PageService.id = $id;
             $location.path('article');
   };
 

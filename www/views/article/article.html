@@ -1,16 +1,26 @@
 <ion-view view-title="{{article.menu.title}}">
   <ion-content>
-      <p ng-if="!articles.length">No Articles</p>
-    <div class="list card" ng-repeat="article in articles track by $index">
+      <td-cards>
+  <td-card ng-repeat="article in articles track by $index" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)">
+      <div ng-if="!articles.length">
       <div class="item">
-        <h2>{{article.title}}</h2>
+        <h2>Loading ...</h2>
+      </div>
+      <div class="item item-image">
+        <img ng-src="image/wait.jpg" />
+      </div>
+    </div>
+      <div class="item">
+        <h2 ng-click="getArticleById({{article.id}})">{{article.title}}</h2>
         <i>{{article.date | date:'short'}}</i>
-        <p>{{article.description}}</p>
+        <p markdown="{{article.description}}">{{article.description}}</p>
       </div>
       <div class="item item-image">
         <img ng-src="../../angular-symfony-master/web/upload/article/{{article.file}}" />
       </div>
-    </div>
+  </td-card>
+</td-cards>
+   
     <ion-infinite-scroll on-infinite="getArticles()" ng-if="total > page" immediate-check="false"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

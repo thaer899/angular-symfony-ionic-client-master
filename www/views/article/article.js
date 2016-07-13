@@ -1,8 +1,9 @@
 angular.module('App')
-.controller('ArticleController', function ($scope, $http,$ionicLoading,$ionicActionSheet,$ionicModal) {
+.controller('ArticleController', function ($scope,PageService, $http,$ionicLoading,$ionicActionSheet,$ionicModal,$location) {
 
   $scope.id =  1;
    $scope.articles = []; 
+   $scope.PageService = PageService;
  $scope.editing = true;
 
   $scope.view = function (index) {
@@ -18,11 +19,12 @@ angular.module('App')
     };
   };
 
-  $scope.getArticlesByMenuId = function () {
+  $scope.getArticlesByMenuId = function ($id) {
        $ionicLoading.show();
-    $http.get('http://127.0.0.1/angular-symfony-master/web/app_dev.php/articles/menu/'+$scope.id+'/list').success(function (response) {
+    $http.get('http://127.0.0.1/angular-symfony-master/web/app_dev.php/articles/menu/'+$id+'/list').success(function (response) {
       $scope.articles = angular.fromJson(response);
-        
+        $scope.PageService.id = $id;
+        $scope.PageService.articles = $scope.articles;
       $ionicLoading.hide();
     }).error(function (err) {
       console.log(err);
@@ -30,7 +32,21 @@ angular.module('App')
 
   };
     
-  $scope.getArticlesByMenuId();
+  $scope.getArticlesByMenuId($scope.PageService.id);
+
+  $scope.getArticleById = function ($id) {
+        $scope.PageService.id = $id;
+            $location.path('article_show');
+  };
+$scope.cardDestroyed = function(index) {
+  $scope.articles.splice(index, 1);
+};
+
+$scope.cardSwiped = function(index) {
+
+  var newCard = articles[index];
+  $scope.articles.push(newCard);
+};
 
     $ionicModal.fromTemplateUrl('my-modal.html', {
         scope: $scope,

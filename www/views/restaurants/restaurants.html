@@ -1,6 +1,13 @@
 <ion-view view-title="Local Restaurants">
   <ion-content>
+   <div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
     <div class="list card" ng-repeat="restaurant in restaurants">
+     
       <div class="item">
         <h2>{{restaurant.name}}</h2>
         <p>{{restaurant.address}}, {{restaurant.city}}</p>
@@ -8,6 +15,7 @@
       <div class="item item-image">
         <img ng-src="{{restaurant.image_url}}" />
       </div>
+      
     </div>
     <ion-infinite-scroll on-infinite="getRestaurants()" ng-if="total > page" immediate-check="false"></ion-infinite-scroll>
   </ion-content>

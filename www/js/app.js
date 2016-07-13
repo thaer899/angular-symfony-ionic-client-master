@@ -1,8 +1,29 @@
-angular.module('App', ['ionic'])
+angular.module('App', ['ionic','ionic.contrib.ui.tinderCards'])
 
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider,$httpProvider, $ionicConfigProvider, uiGmapGoogleMapApiProvider) 
+{ 
+		
+    uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyDEsl1ZFNc1MycjVELDZND1BDUVEuJSx14',
+        v: '3.17',
+        libraries: 'weather,geometry,visualization'
+    })
 
   $stateProvider
+  .state('menu', {
+    url: '/menu',
+    abstract: true,
+      controller: 'MenuController',
+      templateUrl: 'views/menu/menu.html'
+  })
+    .state('app.start', {
+    url: '/start',
+    views: {
+      'menuContent': {
+        templateUrl: 'views/menu/start.html'
+      }
+    }
+  })
     .state('home', {
       url: '/home',
       templateUrl: 'views/home/home.html'
@@ -27,6 +48,11 @@ angular.module('App', ['ionic'])
       controller: 'ArticleController',
       templateUrl: 'views/article/article.html'
     })
+    .state('article_show', {
+      url: '/article_show',
+      controller: 'ArticleShowController',
+      templateUrl: 'views/article_show/article_show.html'
+    })
     .state('weather', {
       url: '/weather',
       controller: 'WeatherController',
@@ -36,6 +62,11 @@ angular.module('App', ['ionic'])
       url: '/restaurants',
       controller: 'RestaurantsController',
       templateUrl: 'views/restaurants/restaurants.html'
+    })
+     .state('maps', {
+      url: '/maps',
+      controller: 'MapsController',
+      templateUrl: 'views/maps/maps.html'
     })
     .state('tour', {
       url: '/tour',
@@ -58,6 +89,29 @@ angular.module('App', ['ionic'])
       });
     }
   }
+})
+.directive('noScroll', function() {
+
+  return {
+    restrict: 'A',
+    link: function($scope, $element, $attr) {
+
+      $element.on('touchmove', function(e) {
+        e.preventDefault();
+      });
+    }
+  }
+})
+.service('PageService', function () {
+   //  var id = 0;
+     var pageService = {
+       id:0,
+       page:{},
+       menu:{},
+       article:{},
+       articles:[]
+     };
+    return pageService;
 })
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
